@@ -27,6 +27,18 @@ fs.createReadStream("kepler_data_march_15_2023.csv")
     console.log(err);
   })
   .on("end", () => {
-    console.log(habitablePlanets.map((planet) => planet["kepler_name"]));
-    console.log(`${habitablePlanets.length} habitable planets found!`);
+    const habitablePlanetsName = habitablePlanets
+      .map((planet) => planet["kepler_name"])
+      .join(" \n");
+
+    const superHabitablePlanet = habitablePlanets
+      .filter(
+        (planet) => planet["koi_prad"] == 1.09 && planet["koi_insol"] == 0.56
+      )
+      .map((planet) => planet["kepler_name"])
+      .join("");
+
+    console.log(`We have found ${habitablePlanets.length} habitable planets!`);
+    console.log(`those are => \n${habitablePlanetsName}`);
+    console.log(`\"${superHabitablePlanet}\" is supper habitable exoplanet`);
   });
